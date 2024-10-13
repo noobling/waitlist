@@ -1,11 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
-import assetData from "./data.json";
-import { getAssetUrl } from "./contentful";
+import Logo from "./logo";
 
 export default async function Navbar() {
-  const logoUrl = await getAssetUrl(assetData.LOGO_ASSET_ID);
-
   return (
     <nav
       style={{
@@ -23,25 +19,7 @@ export default async function Navbar() {
           margin: "0 auto",
         }}
       >
-        <Link
-          href="/"
-          style={{
-            fontSize: "1.5rem",
-            fontWeight: "bold",
-            color: "white",
-            textDecoration: "none",
-          }}
-        >
-          {logoUrl && (
-            <Image
-              src={logoUrl}
-              alt="Logo"
-              width={75}
-              height={75}
-              className="rounded-full"
-            />
-          )}
-        </Link>
+        <Logo width={75} height={75} />
         <div style={{ display: "flex", gap: "1.5rem" }}>
           <NavLink href="/">Home</NavLink>
           <NavLink href="/waitlist/join">Join Waitlist</NavLink>

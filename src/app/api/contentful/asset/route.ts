@@ -25,6 +25,5 @@ export async function GET(request: NextRequest) {
     return Response.json({ error: "Asset not found" }, { status: 404 });
   }
 
-  const parsedUrl = url.split("//")[1];
-  return Response.json({ data: `https:${parsedUrl}` });
+  return Response.json({ data: `https:${url}` });
 }

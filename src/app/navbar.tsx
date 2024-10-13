@@ -1,23 +1,10 @@
-"use client";
-import Link from "next/link";
-import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import assetData from "./data.json";
+import { getAssetUrl } from "./contentful";
 
-const LOGO_ASSET_ID = "rVpP4S2cuEaOg9619Ijiv";
-export default function Navbar() {
-  const [logoUrl, setLogoUrl] = useState<string | null>(null);
-  const getLogoUrl = async () => {
-    const response = await fetch(
-      `/api/contentful/asset?assetId=${LOGO_ASSET_ID}`
-    );
-    const data = await response.json();
-
-    setLogoUrl(data.data);
-  };
-
-  useEffect(() => {
-    getLogoUrl();
-  }, []);
+export default async function Navbar() {
+  const logoUrl = await getAssetUrl(assetData.LOGO_ASSET_ID);
 
   return (
     <nav
@@ -46,7 +33,13 @@ export default function Navbar() {
           }}
         >
           {logoUrl && (
-            <Image src={logoUrl} alt="Logo" width={100} height={100} />
+            <Image
+              src={logoUrl}
+              alt="Logo"
+              width={75}
+              height={75}
+              className="rounded-full"
+            />
           )}
         </Link>
         <div style={{ display: "flex", gap: "1.5rem" }}>

@@ -1,20 +1,25 @@
-"use client";
+import Image from "next/image";
+import { getWaitlist } from "./supabase";
 
-import WaitlistList from "./waitlist-list";
-import { useRouter } from "next/navigation";
-import MyButton from "./my-button";
-export default function Waitlist() {
-  const router = useRouter();
+export default async function Waillist() {
+  const waitlist = await getWaitlist();
+
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-col items-center">
-        <h1 className="text-2xl font-bold mb-4">Waitlist</h1>
-        <MyButton
-          handleSubmit={() => router.push("/waitlist/join")}
-          text="Join Waitlist"
-        />
-      </div>
-      <WaitlistList />
+    <div className="flex flex-col gap-2">
+      {waitlist.map((item) => (
+        <div key={item.id} className="flex items-center gap-2">
+          {item.image_url && (
+            <Image
+              src={item.image_url}
+              alt={item.username}
+              width={50}
+              height={50}
+              className="rounded-full"
+            />
+          )}
+          <p>{item.username}</p>
+        </div>
+      ))}
     </div>
   );
 }

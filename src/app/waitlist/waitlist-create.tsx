@@ -1,16 +1,16 @@
 "use client";
 
-import MyInput from "../my-input";
-import MyButton from "../my-button";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import MyButton from "../my-button";
+import MyInput from "../my-input";
 
 export default function WaitlistCreate() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  function handleSubmit() {
+  async function handleSubmit() {
     if (!email || !username) {
       return;
     }

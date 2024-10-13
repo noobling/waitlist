@@ -1,5 +1,6 @@
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import CryptoJS from "crypto-js";
+import { revalidatePath } from "next/cache";
 
 const supabaseUrl = "https://gcicurjrvqcfdyofnvgo.supabase.co";
 const supabaseKey = process.env.SUPABASE_KEY;
@@ -44,6 +45,8 @@ export async function POST(request: Request) {
     console.error(error);
     return Response.json({ error: error.message }, { status: 500 });
   }
+
+  revalidatePath("/", "page");
 
   return Response.json({ data });
 }
